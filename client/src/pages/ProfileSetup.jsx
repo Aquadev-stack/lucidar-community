@@ -14,9 +14,17 @@ import {
 } from 'lucide-react'
 
 // Import of the decoration images
-import chomp from '/assets/decorations/chomp.png'
-import xmas from '/assets/decorations/xmas.gif'
-// import fireRing from '../assets/decorations/fire.png'
+import chomp from '/assets/decorations/chomp.gif'
+import xmas from '/assets/decorations/xmas.png'
+import catonsie from '/assets/decorations/catonsie.gif'
+import astral_aura from '/assets/decorations/astral_aura.png'
+import aurora from '/assets/decorations/aurora.png'
+import hood_crimson from '/assets/decorations/hood_crimson.png'
+import hood_dark from '/assets/decorations/hood_dark.png'
+import neon_cat_hoodie_black from '/assets/decorations/neon_cat_hoodie_black.png'
+import neon_cat_hoodie_blue from '/assets/decorations/neon_cat_hoodie_blue.png'
+import neon_cat_hoodie_pink from '/assets/decorations/neon_cat_hoodie_pink.png'
+import neon_cat_hoodie from '/assets/decorations/neon_cat_hoodie.png'
 
 
 const fonts = [
@@ -68,7 +76,149 @@ const avatarDecorations = [
       zIndex: 20,
     }
   },
-  // Add more decorations here as you get images
+
+   {
+    id: 'catonsie', 
+    name: 'snoozing cat', 
+    src: catonsie,
+    // Adjust these values to fit your image perfectly
+    style: {
+      position: 'absolute',
+      top: '-60%',      // Move up to center over avatar
+      left: '-60px',     // Move left to center
+      width: '220%',    // Scale to fit
+      height: '220%',
+      objectFit: 'contain',
+      pointerEvents: 'none',
+      zIndex: 20,
+    }
+  },
+   {
+    id: 'astral_aura', 
+    name: 'astral aura', 
+    src: astral_aura,
+    // Adjust these values to fit your image perfectly
+    style: {
+      position: 'absolute',
+      top: '-60%',     
+      left: '-60px',     
+      width: '220%',    
+      height: '220%',
+      objectFit: 'contain',
+      pointerEvents: 'none',
+      zIndex: 20,
+    }
+  },
+   {
+    id: 'aurora', 
+    name: 'aurora', 
+    src: aurora,
+    style: {
+      position: 'absolute',
+      top: '-60%',     
+      left: '-60px',     
+      width: '220%',    
+      height: '220%',
+      objectFit: 'contain',
+      pointerEvents: 'none',
+      zIndex: 20,
+    }
+  },
+   {
+    id: 'hood_crimson', 
+    name: 'hood crimson', 
+    src: hood_crimson,
+    style: {
+      position: 'absolute',
+      top: '-60%',     
+      left: '-60px',     
+      width: '220%',    
+      height: '220%',
+      objectFit: 'contain',
+      pointerEvents: 'none',
+      zIndex: 20,
+    }
+  },
+   {
+    id: 'hood_dark', 
+    name: 'hood dark', 
+    src: hood_dark,
+    style: {
+      position: 'absolute',
+      top: '-60%',     
+      left: '-60px',     
+      width: '220%',    
+      height: '220%',
+      objectFit: 'contain',
+      pointerEvents: 'none',
+      zIndex: 20,
+    }
+  },
+  
+  {
+   id: 'neon_cat_hoodie_black', 
+   name: 'neon cat hoodie black', 
+   src: neon_cat_hoodie_black,
+   style: {
+     position: 'absolute',
+     top: '-60%',     
+     left: '-60px',     
+     width: '220%',    
+     height: '220%',
+     objectFit: 'contain',
+     pointerEvents: 'none',
+     zIndex: 20,
+   }
+ },
+  
+  {
+   id: 'neon_cat_hoodie_blue', 
+   name: 'neon cat hoodie blue', 
+   src: neon_cat_hoodie_blue,
+   style: {
+     position: 'absolute',
+     top: '-60%',     
+     left: '-60px',     
+     width: '220%',    
+     height: '220%',
+     objectFit: 'contain',
+     pointerEvents: 'none',
+     zIndex: 20,
+   }
+ },
+  
+  {
+   id: 'neon_cat_hoodie_pink', 
+   name: 'neon cat hoodie pink', 
+   src: neon_cat_hoodie_pink,
+   style: {
+     position: 'absolute',
+     top: '-60%',     
+     left: '-60px',     
+     width: '220%',    
+     height: '220%',
+     objectFit: 'contain',
+     pointerEvents: 'none',
+     zIndex: 20,
+   }
+ },
+  
+  {
+   id: 'neon_cat_hoodie', 
+   name: 'neon cat hoodie', 
+   src: neon_cat_hoodie,
+   style: {
+     position: 'absolute',
+     top: '-60%',     
+     left: '-60px',     
+     width: '220%',    
+     height: '220%',
+     objectFit: 'contain',
+     pointerEvents: 'none',
+     zIndex: 20,
+   }
+ },
+  
 ]
 
 // Name effects with proper CSS
@@ -182,13 +332,21 @@ export default function ProfileSetup() {
   }
 
   const handleSubmit = () => {
-    localStorage.setItem('userProfile', JSON.stringify(profile))
-    // Also update the user display name in auth
-    const user = JSON.parse(localStorage.getItem('lucidar_user') || '{}')
-    user.displayName = profile.displayName
-    localStorage.setItem('lucidar_user', JSON.stringify(user))
-    navigate('/home')
-  }
+  // Save profile
+  localStorage.setItem('userProfile', JSON.stringify(profile))
+  
+  // Update user data
+  const user = JSON.parse(localStorage.getItem('user') || '{}')
+  user.displayName = profile.displayName
+  localStorage.setItem('user', JSON.stringify(user))
+  
+  // Debug: Check if token exists before navigating
+  const token = localStorage.getItem('token')
+  console.log('Token before navigate:', token)
+  
+  // Navigate to home
+  navigate('/home')
+}
 
   // Get current effect style
   const currentEffect = nameEffects.find(e => e.id === profile.effect)
@@ -254,7 +412,7 @@ export default function ProfileSetup() {
               
               {/* Avatar Container - Fixed positioning */}
               <div className="relative">
-                <div className="relative w-24 h-24 sm:w-28 sm:h-28">
+                <div className="relative w-24 h-24">
                   
                   {/* Decoration Layer - Properly centered */}
                   {profile.decoration !== 'none' && (
@@ -266,8 +424,8 @@ export default function ProfileSetup() {
                           position: 'absolute',
                           width: '400%',
                           objectFit: 'contain',
-                          top: '-6%',
-                          left: '-8%',
+                          top: '-6.9%',
+                          left: '-7%',
                         }}
                       />
                     </div>
@@ -275,7 +433,7 @@ export default function ProfileSetup() {
                   
                   {/* Avatar Circle */}
                   <div 
-                    className="w-[94px] h-[94px] rounded-full overflow-hidden border-4 border-[#070a12] bg-gray-800 relative"
+                    className="w-[83px] h-[83px] rounded-full overflow-hidden border-4 border-[#070a12] bg-gray-800 relative"
                     style={{
                       boxShadow: `0 0 0 2px ${profile.primaryColor}40`
                     }}
@@ -309,7 +467,7 @@ export default function ProfileSetup() {
               {/* Badge */}
               <div className="mb-2">
                 <span 
-                  className="px-3 py-1 rounded-full text-xs font-medium border"
+                  className="px-3 py-1 rounded-full text-xs font-medium border ]"
                   style={{
                     backgroundColor: `${profile.primaryColor}15`,
                     borderColor: `${profile.primaryColor}40`,
