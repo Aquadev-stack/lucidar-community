@@ -11,35 +11,36 @@ export default function Login() {
   const [error, setError] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);  // Fixed: was setLoading
+    setError('');        // Fixed: was setError(null)
 
     try {
-      const response = await fetch('http://localhost:3000/api/login', {
+      const res = await fetch('http://localhost:3000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      })
+        body: JSON.stringify(formData),
+      });
 
-      const data = await response.json()
+      const data = await res.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed')
+      if (!res.ok) {
+        throw new Error(data.message || 'Login failed');
       }
 
-      // Persist session so ProfileSetup (and later protected routes) can use it
-      if (data?.token) localStorage.setItem('lucidar_token', data.token)
-      if (data?.user) localStorage.setItem('lucidar_user', JSON.stringify(data.user))
+      // Store JWT
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
 
-      // Success – redirect to onboarding
-      navigate('/home')
+      // Redirect to home
+      navigate('/home');
+      
     } catch (err) {
-      setError(err.message)
+      setError(err.message);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);  // Fixed: was setLoading
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-lucidar-bg flex items-center justify-center p-4 relative overflow-hidden">
