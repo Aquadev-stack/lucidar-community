@@ -5,6 +5,9 @@ import Signup from './pages/Signup'
 import OnboardingSlides from './pages/OnboardingSlides'
 import ProfileSetup from './pages/ProfileSetup'
 import Home from './pages/Home'
+import Profile from './pages/Profile' // Add this
+import ProfileEditor from './pages/ProfileEditor' // Add this
+import LucidarMarket from './pages/LucidarMarket' // Add this
 
 export default function App() {
   return (
@@ -16,6 +19,10 @@ export default function App() {
         <Route path='/onboardingslides' element={<OnboardingSlides />} />
         <Route path='/profilesetup' element={<ProfileSetup />} />
         <Route path='/home' element={<Home />} />
+        <Route path='/profile/:username' element={<Profile />} /> {/* Add this */}
+        <Route path='/profile' element={<Profile />} /> {/* Own profile */}
+        <Route path='/profileeditor' element={<ProfileEditor />} /> {/* Profile editor */}
+        <Route path='/lucidar-market' element={<LucidarMarket />} /> {/* Lucidar Market */}
       </Routes>
     </BrowserRouter>
   )
